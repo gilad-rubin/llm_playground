@@ -1,3 +1,4 @@
 .env*
 cache/
 *.pdf
+*.pyc
