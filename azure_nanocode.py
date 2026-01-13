@@ -107,7 +107,8 @@ def edit(args: dict) -> str:
     path = args["path"]
     if not os.path.isfile(path):
         return f"error: '{path}' does not exist"
-    text = open(path).read()
+    with open(path, "r", errors="replace") as f:
+        text = f.read()
     old, new = args["old"], args["new"]
     if old not in text:
         return "error: old_string not found in file. Read the file first to see exact content."
@@ -628,25 +629,50 @@ def main():
 
                 # Process tool calls
                 if tool_calls:
-                    for tool_call in tool_calls:
-                        tool_id = tool_call["id"]
-                        function = tool_call["function"]
-                        tool_name = function["name"]
+                    completed_tool_ids = set()
+                    interrupted = False
+                    try:
+                        for tool_call in tool_calls:
+                            tool_id = tool_call["id"]
+                            function = tool_call["function"]
+                            tool_name = function["name"]
 
-                        try:
-                            tool_args = json.loads(function["arguments"])
-                        except json.JSONDecodeError:
-                            tool_args = {}
+                            try:
+                                tool_args = json.loads(function["arguments"])
+                            except json.JSONDecodeError:
+                                tool_args = {}
 
-                        print_tool_call(tool_name, tool_args)
-                        result = run_tool(tool_name, tool_args)
-                        print_tool_result(result)
+                            print_tool_call(tool_name, tool_args)
+                            result = run_tool(tool_name, tool_args)
+                            print_tool_result(result)
 
-                        messages.append({
-                            "role": "tool",
-                            "tool_call_id": tool_id,
-                            "content": result,
-                        })
+                            messages.append({
+                                "role": "tool",
+                                "tool_call_id": tool_id,
+                                "content": result,
+                            })
+                            completed_tool_ids.add(tool_id)
+                    except KeyboardInterrupt:
+                        interrupted = True
+                        # Ensure tool call/message history remains consistent:
+                        # exactly one tool result message per tool_call_id.
+                        for tool_call in tool_calls:
+                            tool_id = tool_call["id"]
+                            if tool_id in completed_tool_ids:
+                                continue
+                            messages.append({
+                                "role": "tool",
+                                "tool_call_id": tool_id,
+                                "content": "error: interrupted",
+                            })
+
+                    if interrupted:
+                        print_rich(
+                            "\n[yellow]Interrupted during tool execution - you can type your next message or /q to quit[/yellow]"
+                            if RICH_AVAILABLE
+                            else "\nInterrupted during tool execution"
+                        )
+                        break
 
                 # Check if done
                 if not tool_calls or finish_reason == "stop":
