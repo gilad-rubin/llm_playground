@@ -1,0 +1,70 @@
+# =============================================================================
+# Agent Swarm Configuration
+# =============================================================================
+# This file configures the agent orchestration system.
+# Adjust paths, models, and preferences to match your environment.
+
+# -- Project Settings --
+project:
+  name: "llm_playground"
+  repo_root: "."                        # relative to this config file's parent
+  worktree_dir: "../llm_playground-worktrees"  # where agent worktrees live
+  base_branch: "main"                   # branch agents fork from
+
+# -- Agent Defaults --
+agents:
+  max_concurrent: 4                     # max simultaneous agents (RAM-dependent)
+  max_retries: 3                        # respawn attempts on failure
+  default_timeout_minutes: 60           # kill agent after this long
+  notify_on_complete: true
+
+  # Claude Code settings
+  claude:
+    model: "claude-sonnet-4-20250514"
+    flags: "--dangerously-skip-permissions"
+    max_budget_usd: 5.00
+    best_for:
+      - "frontend"
+      - "git operations"
+      - "quick fixes"
+      - "documentation"
+
+  # OpenAI Codex settings
+  codex:
+    model: "o4-mini"
+    flags: "--full-auto"
+    best_for:
+      - "backend logic"
+      - "complex bugs"
+      - "multi-file refactors"
+      - "reasoning-heavy tasks"
+
+  # Gemini settings (design + review)
+  gemini:
+    model: "gemini-2.5-pro"
+    best_for:
+      - "UI design"
+      - "code review"
+      - "security analysis"
+
+# -- Monitoring --
+monitoring:
+  check_interval_minutes: 10            # how often cron checks agents
+  notification_method: "terminal"       # terminal | telegram | slack
+  telegram_bot_token: ""                # fill in for telegram notifications
+  telegram_chat_id: ""
+  slack_webhook_url: ""                 # fill in for slack notifications
+
+# -- Code Review --
+review:
+  enabled: true
+  reviewers:
+    - "gemini-code-assist"              # free GitHub App
+  require_ci_pass: true
+  require_screenshots_for_ui: true
+
+# -- Cleanup --
+cleanup:
+  auto_cleanup: true
+  cleanup_after_merge: true
+  keep_logs_days: 7

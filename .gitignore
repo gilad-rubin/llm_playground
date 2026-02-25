@@ -2,3 +2,8 @@
 cache/
 *.pdf
 *.pyc
+
+# Agent orchestration
+.clawdbot/logs/
+.clawdbot/active-tasks.json
+*-worktrees/

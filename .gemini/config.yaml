@@ -1,0 +1,16 @@
+# Gemini Code Assist configuration
+# Install the GitHub App: https://github.com/apps/gemini-code-assist
+# Docs: https://developers.google.com/gemini-code-assist/docs/customize-gemini-behavior-github
+
+have_fun: false
+
+code_review:
+  comment_severity_threshold: MEDIUM
+
+ignore_patterns:
+  - "*.generated.*"
+  - "*.min.js"
+  - "*.min.css"
+  - "vendor/**"
+  - "node_modules/**"
+  - ".clawdbot/logs/**"
