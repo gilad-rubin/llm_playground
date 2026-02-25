@@ -35,7 +35,7 @@ if [ ! -f "$TASK_FILE" ]; then
 fi
 if [ ! -f "$TASK_FILE" ]; then
   echo "Error: Task file not found: $1"
-  echo "Create one with: cp .clawdbot/templates/TASKS.md ./TASKS.md"
+  echo "Create one with: cp .openclaw/templates/TASKS.md ./TASKS.md"
   exit 1
 fi
 

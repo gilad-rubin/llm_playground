@@ -46,16 +46,16 @@ orchestrator.py ─── config.yaml
 
 ```bash
 # 1. Run setup to verify dependencies
-bash .clawdbot/scripts/setup.sh
+bash .openclaw/scripts/setup.sh
 
 # 2. Spawn an agent
-python3 .clawdbot/orchestrator.py spawn fix-bug claude "Fix the auth bug in login.py"
+python3 .openclaw/orchestrator.py spawn fix-bug claude "Fix the auth bug in login.py"
 
 # 3. Check status
-python3 .clawdbot/orchestrator.py status
+python3 .openclaw/orchestrator.py status
 
 # 4. Watch the dashboard
-python3 .clawdbot/orchestrator.py dashboard
+python3 .openclaw/orchestrator.py dashboard
 ```
 
 ## Prerequisites
@@ -87,7 +87,7 @@ export OPENAI_API_KEY="sk-..."
 ### Spawn an Agent
 
 ```bash
-python3 .clawdbot/orchestrator.py spawn <task-id> <agent> "<description>" [model]
+python3 .openclaw/orchestrator.py spawn <task-id> <agent> "<description>" [model]
 ```
 
 This will:
@@ -100,26 +100,26 @@ This will:
 **Examples:**
 ```bash
 # Claude for frontend work
-python3 .clawdbot/orchestrator.py spawn ui-redesign claude "Redesign the settings page"
+python3 .openclaw/orchestrator.py spawn ui-redesign claude "Redesign the settings page"
 
 # Codex for backend logic
-python3 .clawdbot/orchestrator.py spawn fix-billing codex "Fix the billing race condition"
+python3 .openclaw/orchestrator.py spawn fix-billing codex "Fix the billing race condition"
 
 # Custom model
-python3 .clawdbot/orchestrator.py spawn feat-auth claude "Add OAuth2" claude-opus-4-20250514
+python3 .openclaw/orchestrator.py spawn feat-auth claude "Add OAuth2" claude-opus-4-20250514
 ```
 
 ### Monitor Agents
 
 ```bash
 # Quick status
-python3 .clawdbot/orchestrator.py status
+python3 .openclaw/orchestrator.py status
 
 # Live dashboard (updates every 5s)
-python3 .clawdbot/orchestrator.py dashboard
+python3 .openclaw/orchestrator.py dashboard
 
 # Run health check (same as cron)
-python3 .clawdbot/orchestrator.py check
+python3 .openclaw/orchestrator.py check
 ```
 
 ### Talk to a Running Agent
@@ -128,7 +128,7 @@ The killer feature of tmux — redirect agents mid-task:
 
 ```bash
 # Via orchestrator
-python3 .clawdbot/orchestrator.py send fix-bug "Stop. Focus on the API layer first."
+python3 .openclaw/orchestrator.py send fix-bug "Stop. Focus on the API layer first."
 
 # Via tmux directly
 tmux send-keys -t agent-fix-bug "The schema is in src/types/user.ts. Use that." Enter
@@ -141,10 +141,10 @@ tmux attach -t agent-fix-bug
 
 ```bash
 # Review a PR with all available reviewers
-python3 .clawdbot/orchestrator.py review 42
+python3 .openclaw/orchestrator.py review 42
 
 # Specific reviewers
-python3 .clawdbot/orchestrator.py review 42 claude codex
+python3 .openclaw/orchestrator.py review 42 claude codex
 ```
 
 ### Ralph Loop (Iterative Execution)
@@ -154,24 +154,24 @@ a task list one item at a time. No context rot.
 
 ```bash
 # 1. Create your task list
-cp .clawdbot/templates/TASKS.md ./TASKS.md
+cp .openclaw/templates/TASKS.md ./TASKS.md
 # Edit TASKS.md with your actual tasks
 
 # 2. Run the loop
-python3 .clawdbot/orchestrator.py ralph TASKS.md --agent=claude --max-iterations=10
+python3 .openclaw/orchestrator.py ralph TASKS.md --agent=claude --max-iterations=10
 
 # Or use the bash script directly
-bash .clawdbot/scripts/ralph-loop.sh TASKS.md 10 claude
+bash .openclaw/scripts/ralph-loop.sh TASKS.md 10 claude
 ```
 
 ### Cleanup
 
 ```bash
 # Clean completed/merged tasks
-python3 .clawdbot/orchestrator.py cleanup
+python3 .openclaw/orchestrator.py cleanup
 
 # Clean everything including failed tasks
-python3 .clawdbot/orchestrator.py cleanup --all
+python3 .openclaw/orchestrator.py cleanup --all
 ```
 
 ## Automated Monitoring (Cron)
@@ -180,10 +180,10 @@ python3 .clawdbot/orchestrator.py cleanup --all
 crontab -e
 
 # Check agents every 10 minutes
-*/10 * * * * bash /path/to/.clawdbot/scripts/check-agents.sh >> /path/to/.clawdbot/logs/monitor.log 2>&1
+*/10 * * * * bash /path/to/.openclaw/scripts/check-agents.sh >> /path/to/.openclaw/logs/monitor.log 2>&1
 
 # Daily cleanup at 3 AM
-0 3 * * * bash /path/to/.clawdbot/scripts/cleanup.sh >> /path/to/.clawdbot/logs/cleanup.log 2>&1
+0 3 * * * bash /path/to/.openclaw/scripts/cleanup.sh >> /path/to/.openclaw/logs/cleanup.log 2>&1
 ```
 
 ## Gemini Code Assist (Free PR Reviews)
@@ -226,7 +226,7 @@ openclaw onboard
 ## File Structure
 
 ```
-.clawdbot/
+.openclaw/
 ├── config.yaml              # Main configuration
 ├── orchestrator.py           # Python CLI orchestrator
 ├── active-tasks.json         # Task registry (gitignored)

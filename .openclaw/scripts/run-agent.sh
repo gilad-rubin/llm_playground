@@ -100,9 +100,9 @@ echo "[$(date '+%H:%M:%S')] Agent exited with code: $EXIT_CODE" | tee -a "$LOG_F
 # -- Post-execution checks --
 if [ $EXIT_CODE -eq 0 ]; then
   # Check if the agent created the done marker
-  if [ -f ".clawdbot-done" ]; then
+  if [ -f ".openclaw-done" ]; then
     echo "[$(date '+%H:%M:%S')] Agent marked task as done." | tee -a "$LOG_FILE"
-    rm -f ".clawdbot-done"
+    rm -f ".openclaw-done"
   fi
 
   # Check for PR

@@ -8,7 +8,7 @@
 #   ./cleanup.sh --dry-run    # show what would be cleaned without doing it
 #
 # Recommended: run daily via cron
-#   0 3 * * * /path/to/.clawdbot/scripts/cleanup.sh >> /path/to/.clawdbot/logs/cleanup.log 2>&1
+#   0 3 * * * /path/to/.openclaw/scripts/cleanup.sh >> /path/to/.openclaw/logs/cleanup.log 2>&1
 
 set -uo pipefail
 

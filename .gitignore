@@ -4,6 +4,6 @@ cache/
 *.pyc
 
 # Agent orchestration
-.clawdbot/logs/
-.clawdbot/active-tasks.json
+.openclaw/logs/
+.openclaw/active-tasks.json
 *-worktrees/

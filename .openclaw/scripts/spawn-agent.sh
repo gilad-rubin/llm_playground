@@ -134,7 +134,7 @@ $DESCRIPTION
 4. If tests pass, commit your changes with a descriptive message
 5. Push to the remote branch: git push -u origin $BRANCH_NAME
 6. Create a PR using: gh pr create --title "$TASK_ID" --body "Automated PR for: $DESCRIPTION" --base $BASE_BRANCH
-7. When done, create a file called .clawdbot-done in the repo root
+7. When done, create a file called .openclaw-done in the repo root
 PROMPT_EOF
 
 case "$AGENT_TYPE" in

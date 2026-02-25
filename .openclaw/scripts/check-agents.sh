@@ -4,7 +4,7 @@
 # =============================================================================
 # Checks tmux sessions, CI status, PR status, and respawns failed agents.
 # Designed to run every 10 minutes via cron:
-#   */10 * * * * /path/to/.clawdbot/scripts/check-agents.sh >> /path/to/.clawdbot/logs/monitor.log 2>&1
+#   */10 * * * * /path/to/.openclaw/scripts/check-agents.sh >> /path/to/.openclaw/logs/monitor.log 2>&1
 #
 # This script is 100% deterministic — no LLM calls, pure shell logic.
 

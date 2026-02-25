@@ -20,11 +20,11 @@ and marks it `[x]` complete.
 
 ```bash
 # Copy this template
-cp .clawdbot/templates/TASKS.md ./TASKS.md
+cp .openclaw/templates/TASKS.md ./TASKS.md
 
 # Edit with your actual tasks
 vim TASKS.md
 
 # Run the Ralph Loop
-python .clawdbot/orchestrator.py ralph TASKS.md --agent=claude --max-iterations=10
+python .openclaw/orchestrator.py ralph TASKS.md --agent=claude --max-iterations=10
 ```

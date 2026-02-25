@@ -5,7 +5,7 @@
 # Run this script to verify all dependencies and configure your environment.
 #
 # Usage:
-#   bash .clawdbot/scripts/setup.sh
+#   bash .openclaw/scripts/setup.sh
 
 set -uo pipefail
 
@@ -90,9 +90,9 @@ echo ""
 echo "Directory structure:"
 mkdir -p "$CLAWDBOT_DIR/logs"
 mkdir -p "$CLAWDBOT_DIR/templates"
-echo "  [OK] .clawdbot/logs/"
-echo "  [OK] .clawdbot/templates/"
-echo "  [OK] .clawdbot/scripts/"
+echo "  [OK] .openclaw/logs/"
+echo "  [OK] .openclaw/templates/"
+echo "  [OK] .openclaw/scripts/"
 echo ""
 
 # -- Git worktree support --
@@ -141,9 +141,9 @@ if [ $ERRORS -eq 0 ]; then
   echo "  Setup complete! ($WARNINGS warnings)"
   echo ""
   echo "  Quick start:"
-  echo "    python3 .clawdbot/orchestrator.py spawn my-task claude 'Fix the bug in auth.py'"
-  echo "    python3 .clawdbot/orchestrator.py status"
-  echo "    python3 .clawdbot/orchestrator.py dashboard"
+  echo "    python3 .openclaw/orchestrator.py spawn my-task claude 'Fix the bug in auth.py'"
+  echo "    python3 .openclaw/orchestrator.py status"
+  echo "    python3 .openclaw/orchestrator.py dashboard"
 else
   echo "  Setup has $ERRORS error(s) and $WARNINGS warning(s)."
   echo "  Fix the errors above before using the agent swarm."

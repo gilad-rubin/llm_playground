@@ -13,4 +13,4 @@ ignore_patterns:
   - "*.min.css"
   - "vendor/**"
   - "node_modules/**"
-  - ".clawdbot/logs/**"
+  - ".openclaw/logs/**"
